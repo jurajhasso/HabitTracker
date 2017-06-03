@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.habittracker.HabitContract.HabitEntry;
 
@@ -20,7 +18,7 @@ public class HabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_habit);
     }
 
-    private void displayDatabaseInfo() {
+    private Cursor displayDatabaseInfo() {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
@@ -54,12 +52,13 @@ public class HabitActivity extends AppCompatActivity {
                 String currentDescription = cursor.getString(descriptionColumnIndex);
                 int currentFrequency = cursor.getInt(frequencyColumnIndex);
             }
+            return cursor;
         } finally {
             cursor.close();
         }
     }
 
-    private void insertHabit(){
+    private void insertHabit() {
 
         String nameString = "Jogging";
         String descriptionString = "Going for a quick run";
